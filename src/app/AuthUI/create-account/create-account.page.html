@@ -1,0 +1,53 @@
+<ion-toolbar  class="app-header">
+  <div slot="start" class="logo" slot="start">
+   <img src="/assets/gelatos-logo.svg">
+  </div>
+
+  <ion-button (click)="closeClicked()" color="light" class="icon-button" slot="end">
+    <ion-icon color="primary" slot="icon-only" name="close"></ion-icon>
+  </ion-button>
+  
+</ion-toolbar>
+
+<ion-content class="ion-padding ion-text-center"> 
+<div class="all-page-form-holder">
+ <ion-row>
+   <ion-col>
+     <h1>CREATE ACCOUNT</h1>
+   </ion-col>
+ </ion-row>
+ <ion-row>
+
+</ion-row>
+
+ <ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input [disabled]="workingOnIt" [(ngModel)]="email"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input [disabled]="workingOnIt"  [(ngModel)]="password" type="password"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating">Confirm Password</ion-label>
+      <ion-input [disabled]="workingOnIt"  [(ngModel)]="passwordConfirmation" type="password"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <ion-button [disabled]="workingOnIt"  (click)="createAccountClicked()"  class="desktop-button" expand="full" color="primary">{{createAccountButtonText}}</ion-button>
+  </ion-col>
+</ion-row>
+</div>
+</ion-content>

@@ -1,0 +1,78 @@
+<ion-toolbar  class="app-header">
+  <div slot="start" class="logo" slot="start">
+   <img src="/assets/gelatos-logo.svg">
+  </div>
+
+  <ion-button (click)="closeClicked()" color="light" class="icon-button" slot="end">
+    <ion-icon color="primary" slot="icon-only" name="close"></ion-icon>
+  </ion-button>
+  
+</ion-toolbar>
+
+<ion-content class="ion-padding ion-text-center"> 
+<div class="all-page-form-holder">
+ <ion-row>
+   <ion-col>
+     <h1>MY ACCOUNT</h1>
+   </ion-col>
+ </ion-row>
+ <ion-row *ngIf="editMode">
+  <ion-col>
+    <p>Complete your account information</p>
+  </ion-col>
+</ion-row>
+<ion-row *ngIf="loading">
+  <ion-col>
+    <ion-spinner name="circles"></ion-spinner>
+  </ion-col>
+</ion-row>
+
+ <ion-row *ngIf="!loading">
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input disabled="true"  [(ngModel)]="email"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row *ngIf="!loading">
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input [disabled]="!editMode"  [(ngModel)]="firstName"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row *ngIf="!loading">
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input [disabled]="!editMode"   [(ngModel)]="lastName"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row *ngIf="!loading">
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input [disabled]="!editMode"  [(ngModel)]="phoneNumber"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row *ngIf="!loading">
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating">Address</ion-label>
+      <ion-textarea [disabled]="!editMode" [(ngModel)]="address">
+      </ion-textarea>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row *ngIf="!loading">
+  <ion-col>
+   <ion-button (click)="updateUserAccountInfo()" [color]="editMode?'primary':'dark'">{{editMode?'SAVE':'EDIT'}}</ion-button>
+  </ion-col>
+</ion-row>
+
+</div>
+</ion-content>

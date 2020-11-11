@@ -24,3 +24,86 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+html,body{
+    font-family: 'Roboto', sans-serif;
+
+}
+.logo{
+    width: 130px;
+}
+.app-header{
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 8px;
+}
+.footer-content{
+    text-align: center;
+    font-weight: bold;
+}
+
+.footer-content span{
+    color: #3171e0;
+    text-transform: uppercase;
+    cursor: pointer;
+    
+}
+.introduction{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    
+   
+}
+.intro-cover{
+    flex: 1;
+    
+}
+.intro-cover img{
+    width: 500px;
+}
+.intro-text{
+    flex: 1;
+    font-weight: bold;
+}
+.intro-text h1{
+    font-weight: 600;
+}
+.intro-text p{
+    color: gray;
+}
+
+.all-page-form-holder{
+    width: 30%;
+    margin: auto;
+     
+}
+.line{
+    border-top: gray 1px solid;
+    margin-top: 20px;
+}
+.clickable-link{
+    cursor: pointer;
+}
+@media only screen and (max-width: 600px) {
+    .app-header{
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 8px;
+    }
+    .logo{
+        width: 70px;
+    }
+    .all-page-form-holder{
+        width: 100%;
+    }
+
+ 
+}
+.icon-button{
+    --box-shadow: none;
+}
+.right-8{
+    margin-right: 8px;
+}
