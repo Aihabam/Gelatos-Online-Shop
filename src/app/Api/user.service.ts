@@ -31,4 +31,23 @@ export class UserService {
      })
     });
   }
+  addToUserBasket(uid:string,item:object){
+    return new Promise((resolve,reject) => {
+    this.firebase.database.ref('users').child(uid).child('basket').push().set(item)
+    .then(() => {
+      resolve();
+    }).catch(() => {
+      reject();
+    })
+    });
+  }
+  getItemsInBasket(uid:string){
+  return this.firebase.list('users/'+uid+'/basket').valueChanges();
+  }
+  removeItemFromBasket(uid:string,item:any){
+   this.firebase.list('users/'+uid+'/basket/'+[item]).remove()
+   .then(() => {
+     
+   })
+  }
 }

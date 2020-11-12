@@ -124,7 +124,7 @@ export class AccountPage implements OnInit {
     this.loggingOut = true;
     this.auth.signOutUser()
     .then(() => {
-      this.navCon.navigateRoot('tabs/home');
+      window.location.replace('/')
     }).catch(() => {
       this.loggingOut = false;
       this.showMessage('Something went wrong, please try again later.');

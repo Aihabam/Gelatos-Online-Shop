@@ -2,9 +2,9 @@
     <div class="logo" slot="start">
      <img src="/assets/gelatos-logo.svg">
     </div>
-    <ion-chip *ngIf="!disabledClicks" (click)="displayBasket()" color="primary" slot="end">
+    <ion-chip *ngIf="!disabledClicks" (click)="basketClicked()" color="primary" slot="end">
       <ion-icon name="basket"></ion-icon>
-      <ion-label>BASKET</ion-label>
+      <ion-label>{{basketTotalItems?basketTotalItems:'BASKET'}}</ion-label>
     </ion-chip>
     <ion-chip *ngIf="!disabledClicks"  (click)="accountOnClick()" color="primary" slot="end">
       <ion-icon  name="person-circle-outline"></ion-icon>
