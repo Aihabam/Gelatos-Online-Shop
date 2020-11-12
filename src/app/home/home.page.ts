@@ -12,8 +12,8 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
   }
-  seeAllClicked(){
-
+  goToShop(){
+    this.navCon.navigateRoot('/tabs/shop');
   }
 
 }

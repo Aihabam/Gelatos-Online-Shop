@@ -1,9 +1,37 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Shop</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
 
+<ion-content class="ion-padding">
+  <div class="shop-products-list">
+    <div class="header">
+      <h1> Choose and add to your basket</h1>
+      <ion-row *ngIf="loading">
+        <ion-col>
+          <ion-spinner name="circles"></ion-spinner>
+          <p>Loading products...</p>
+        </ion-col>
+
+      </ion-row>
+    </div>
+    <div class="content" *ngFor="let item of products | async">
+       <div class="product">
+        <div class="product-img"> 
+        <img [src]="item.img">
+        </div>
+        <div class="product-name">
+       <h1>{{item.name}}</h1>
+        </div>
+         <div class="actions">
+          <ion-chip [color]="item.available?'success':'danger'" slot="end">
+            <ion-label>{{item.available?'AVAILABLE '+'Rp. '+item.price:'NOT AVAILABLE'}}</ion-label>
+          </ion-chip><br>
+          <ion-button  (click)="addToBasketClicked(item.name,item.price,item.img,$event)" color="warning">ADD TO BASKET</ion-button>
+         </div>
+       </div><br>
+    </div>
+  </div>
 </ion-content>
+<ion-footer>
+  <div class="footer">
+    <p>© 2020 - <a>GELATOS</a> | <a href="https://sites.google.com/view/gelatos-agreement" target="__blank">Privacy Policy</a> |  <a href="https://sites.google.com/view/gelatos-agreement" target="__blank">Terms & Conditions</a></p>
+  </div>
+</ion-footer>

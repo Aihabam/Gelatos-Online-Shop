@@ -18,6 +18,7 @@ export class AccountPage implements OnInit {
   address:string;
   editMode:boolean;
   loading:boolean;
+  loggingOut:boolean;
   constructor(private navCon:NavController,private auth:AuthService,private user:UserService,private toast:ToastController) { }
 
   ngOnInit() {
@@ -31,6 +32,7 @@ export class AccountPage implements OnInit {
     this.lastName = '';
     this.phoneNumber = '';
     this.address = '';
+    this.loggingOut = false;
     this.getUserAccount();
   }
   getUserAccount(){
@@ -117,5 +119,16 @@ export class AccountPage implements OnInit {
       position:'top'
     });
     return await toast.present();
+  }
+  logoutClicked(){
+    this.loggingOut = true;
+    this.auth.signOutUser()
+    .then(() => {
+      this.navCon.navigateRoot('tabs/home');
+    }).catch(() => {
+      this.loggingOut = false;
+      this.showMessage('Something went wrong, please try again later.');
+
+    });
   }
 }

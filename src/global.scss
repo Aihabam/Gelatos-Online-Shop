@@ -86,7 +86,15 @@ html,body{
 .clickable-link{
     cursor: pointer;
 }
+.footer{
+    width: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 10px;
+}
 @media only screen and (max-width: 600px) {
+
     .app-header{
         padding-left: 8px;
         padding-right: 8px;
@@ -95,8 +103,30 @@ html,body{
     .logo{
         width: 70px;
     }
+    .introduction{
+        flex-direction: column;
+        
+    }
+    .intro-text {
+        text-align: center;
+    }
+    .action{
+        text-align: center;
+    }
+    .second{
+        margin-top: 100px !important;
+    }
+    .fav-favorite{
+        margin-top: 100px !important;
+    }
+    .fav-favorite .body{
+        flex-direction: column;
+    }
     .all-page-form-holder{
         width: 100%;
+    }
+    .action {
+        text-align: center !important;
     }
 
  

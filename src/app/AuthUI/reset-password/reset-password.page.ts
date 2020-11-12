@@ -30,7 +30,10 @@ export class ResetPasswordPage implements OnInit {
       this.workingOnIt = true;
       this.auth.sendResetPasswordLink(this.email)
       .then(() => {
-       this.navCon.navigateRoot('/tabs/home');
+        this.showMessage('An email was sent to '+this.email);
+        this.email = '';
+        this.workingOnIt = false;
+        this.sendButtonText =  'SEND';
       }).catch((error) => {
         this.workingOnIt = false;
         this.sendButtonText =  'SEND';

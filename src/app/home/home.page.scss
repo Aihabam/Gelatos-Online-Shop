@@ -40,26 +40,5 @@
     text-align: center;
 }
 
-@media only screen and (max-width: 600px) {
-    .introduction{
-        flex-direction: column;
-        
-    }
-    .intro-text {
-        text-align: center;
-    }
-    .action{
-        text-align: center;
-    }
-    .second{
-        margin-top: 100px !important;
-    }
-    .fav-favorite{
-        margin-top: 100px !important;
-    }
-    .fav-favorite .body{
-        flex-direction: column;
-    }
- 
-}
+
 

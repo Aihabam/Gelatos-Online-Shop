@@ -1,5 +1,5 @@
 import { Component, Injectable } from '@angular/core';
-import { NavController, ToastController } from '@ionic/angular';
+import {  IonTabBar, IonTabs, NavController, ToastController } from '@ionic/angular';
 
 import { AuthService } from '../Api/auth.service';
 
@@ -15,10 +15,16 @@ export class TabsPage {
 
   basketModal:any;
   loggedIn:boolean;
+
   disabledClicks:boolean;
   constructor(private auth:AuthService,private toast:ToastController,private navCon:NavController) {
-    this.setStartState();
 
+  
+
+
+  }
+  ionViewDidEnter(){
+    this.setStartState(); 
   }
   setStartState(){
     this.loggedIn = false;
@@ -36,7 +42,7 @@ export class TabsPage {
   }).catch((error) => {
     this.showMessage('Something went wrong');
   });
-  }
+}
   accountOnClick(){
    this.loggedIn?this.navCon.navigateForward('/account'):this.navCon.navigateForward('/login');
   }
@@ -46,6 +52,9 @@ export class TabsPage {
       duration:2000,
     });
     return await toast.present();
+  }
+  displayBasket(){
+
   }
 
 }

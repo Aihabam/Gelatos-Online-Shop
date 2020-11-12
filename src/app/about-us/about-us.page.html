@@ -1,9 +1,46 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>AboutUs</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <div class="introduction">
+   <div class="intro-cover">
+    <img src="/assets/about-lr-image-enable.jpg">
+   </div>
+   <div class="intro-text">
+   <h1 >WHO WE ARE</h1>
+   <p>At Gelatos, we’re out to produce the finest ice creams in the world, in the most responsible and sustainable way possible. In the process, we hope to enrich and enliven the communities in which we live and work, and leave the world just a little bit “sweeter” than we found it.</p>
+   </div>
+  </div>
+  <div class="introduction second">
+      <div class="intro-cover" >
+          <img src="/assets/fineicecreams-box-1-image.jpg">
+         </div>
+      <div class="intro-text">
+      <h1 >THE FINEST ICE CREAMS. MADE FROM SCRATCH.</h1>
+      <p>Dense and pure-flavored, with smooth, consistent texture and a rich, velvety mouth feel. 20-years of craft, pushing for something greater, and, with a few, simple ingredients, ending up someplace magical.</p>
+      </div>
+  
+  </div>
+  <div class="join-card">
+    <h1>Want to know the latest and greatest from Gelatos? SUBSCRIBE HERE.</h1>
 
-</ion-content>
+    <div class="all-page-form-holder">
+        <ion-row>
+         <ion-col>
+           <ion-item>
+             <ion-label position="floating">Email</ion-label>
+             <ion-input [disabled]="workingOnIt" [(ngModel)]="email"></ion-input>
+           </ion-item>
+         </ion-col>
+       </ion-row>
+       <ion-row>
+         <ion-col>
+           <ion-button [disabled]="workingOnIt"  (click)="joinButtonClicked()"  class="desktop-button" expand="full" color="primary">{{joinButtonText}}</ion-button>
+         </ion-col>
+       </ion-row>
+       </div>
+  </div>
+  </ion-content>
+  <ion-footer>
+    <div class="footer">
+      <p>© 2020 - <a>GELATOS</a> | <a href="https://sites.google.com/view/gelatos-agreement" target="__blank">Privacy Policy</a> |  <a href="https://sites.google.com/view/gelatos-agreement" target="__blank">Terms & Conditions</a></p>
+    </div>
+  </ion-footer>

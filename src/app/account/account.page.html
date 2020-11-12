@@ -72,7 +72,15 @@
   <ion-col>
    <ion-button (click)="updateUserAccountInfo()" [color]="editMode?'primary':'dark'">{{editMode?'SAVE':'EDIT'}}</ion-button>
   </ion-col>
+  <ion-col>
+    <ion-button [disabled]="loggingOut" (click)="logoutClicked()" color="danger">Logout</ion-button>
+   </ion-col>
 </ion-row>
 
 </div>
 </ion-content>
+<ion-footer>
+  <div class="footer">
+    <p>© 2020 - <a>GELATOS</a> | <a href="https://sites.google.com/view/gelatos-agreement" target="__blank">Privacy Policy</a> |  <a href="https://sites.google.com/view/gelatos-agreement" target="__blank">Terms & Conditions</a></p>
+  </div>
+</ion-footer>
