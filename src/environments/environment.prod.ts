@@ -9,5 +9,8 @@ export const environment = {
     messagingSenderId: "324069296300",
     appId: "1:324069296300:web:c73f36c26f2b20eb0f7709",
     measurementId: "G-1T4L29EZ5V"
+  },
+  payPal:{
+    id:"AYkPBI4EMWIBGjumyLNXLVVyQPqmEahnp_BHu6zmouRwUHUnWEe_vwVeYWgE3XYR1DE-AVn9F6TIudw0"
   }
 };

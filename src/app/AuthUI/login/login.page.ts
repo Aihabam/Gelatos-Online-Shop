@@ -1,4 +1,3 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/Api/auth.service';
@@ -37,7 +36,7 @@ export class LoginPage implements OnInit {
       this.workingOnIt = true;
       this.auth.doLogin(this.email,this.password)
       .then(() => {
-       this.navCon.navigateRoot('/tabs/home');
+       this.navCon.navigateRoot('/tabs/shop');
       }).catch((error) => {
         this.workingOnIt = false;
         this.loginButtonText =  'LOG ME IN';

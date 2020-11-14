@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController, NavController } from '@ionic/angular';
+import { ToastController, NavController, ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { AuthService } from '../Api/auth.service';
 import { UserService } from '../Api/user.service';
@@ -14,9 +14,11 @@ export class BasketPage implements OnInit {
   selectedTab:string;
   uid:string;
   itemsInBasket:Observable<any[]>;
+  totalItems = 0;
+  totalAmount = 0;
   loading:boolean;
   message = '';
-  constructor(private auth:AuthService,private user:UserService,private navCon:NavController) { }
+  constructor(private auth:AuthService,private user:UserService,private navCon:NavController,private toast:ToastController,private modal:ModalController) { }
 
   ngOnInit() {
   this.setSelectedTab();
@@ -35,8 +37,14 @@ export class BasketPage implements OnInit {
           this.itemsInBasket =  this.user.getItemsInBasket(user['uid']);
           this.loading = false;
           this.itemsInBasket.subscribe((e) => {
-                     
-           if (e.length >= 0){
+          this.totalItems = e.length;
+          this.totalAmount = 0;
+          e.forEach((item) => {
+            this.totalAmount += item['price'];
+            
+          })
+          
+           if (e.length > 0){
              console.log(e.length);
              this.message = 'Slide left any item to remove';
            }else{
@@ -50,11 +58,36 @@ export class BasketPage implements OnInit {
 
     });
   }
-  removeItem(key){
-    console.log(key);
+
+  removeItem(key:string){    
+    this.user.removeItemFromBasket(this.uid,key)
+    .then(() => {
+    this.itemsInBasket.subscribe((e) => {
+     if (e.length < 0){
+      this.message = 'No items yet.'; 
+     }
+     
+    });
+    }).catch(() => {
+      this.showMessage('Something went wrong')
+    });
     
-    this.user.removeItemFromBasket(this.uid,key);
-    
+
+  }
+  async showMessage(message:string){
+    const toast = await this.toast.create({
+      message:message,
+      duration:2000,
+      position:'top'
+    });
+    return await toast.present();
+  }
+  checkOutClicked(){
+    this.modal.dismiss();
+    this.navCon.navigateForward('/check-out');
+  }
+  closeClicked(){
+    this.modal.dismiss();
 
   }
 

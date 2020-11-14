@@ -38,6 +38,13 @@ const routes: Routes = [
     path: 'reset-password',
     loadChildren: () => import('./AuthUI/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
   },
+  {
+    path: 'check-out',
+    loadChildren: () => import('./check-out/check-out.module').then( m => m.CheckOutPageModule),
+    canActivate:[AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
+
 
 ];
 @NgModule({

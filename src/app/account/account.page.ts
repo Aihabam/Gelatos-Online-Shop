@@ -23,8 +23,9 @@ export class AccountPage implements OnInit {
 
   ngOnInit() {
     this.setStartState();
-  
+   
   }
+  // Set start state is a function that will set all the settings to their default state
   setStartState(){
     this.editMode = false;
     this.loading = true;
@@ -35,12 +36,14 @@ export class AccountPage implements OnInit {
     this.loggingOut = false;
     this.getUserAccount();
   }
+  // Get the current user account
   getUserAccount(){
    this.auth.getUser()
    .then((user) => {
      if (user){
       this.email = user['email'];
       this.uid = user['uid'];
+      // get the 
       this.getUserAccountInfo(user['uid']);
      }else{
        this.navCon.navigateRoot('/login');
@@ -50,10 +53,12 @@ export class AccountPage implements OnInit {
     this.showMessage('Something went wrong, please try again later.');
    });
   }
+  // Get the current user account info  by current user id
   getUserAccountInfo(uid:string){
     this.user.getUserInformation(uid)
     .then((userInfo) => {
       if (userInfo){
+        //  bind the info of the current user
         this.firstName = userInfo['firstName'];
         this.lastName = userInfo['lastName'];
         this.address = userInfo['address'];
@@ -68,6 +73,7 @@ export class AccountPage implements OnInit {
 
     });
   }
+  // Update current user info 
   updateUserAccountInfo(){
     if (this.editMode){
       if (ValidateService.isEmpty(this.firstName)){
@@ -89,9 +95,11 @@ export class AccountPage implements OnInit {
         }
         this.user.updateUserInformation(this.uid,userInfo)
         .then(() => {
+          // update success 
            this.showMessage('Saved');
            this.setStartState();
         }).catch(() => {
+          // update failed
           this.showMessage('Something went wrong, please try again later.');
   
         });
@@ -102,6 +110,7 @@ export class AccountPage implements OnInit {
     }
  
   }
+  // set the mode for the account view editable or not editable 
   setAccountMode(){
     if(this.firstName && this.lastName && this.phoneNumber && this.address){
       this.editMode = false;
@@ -109,8 +118,9 @@ export class AccountPage implements OnInit {
       this.editMode = true;
     }
   }
+  // Close button clicked navigate to shop page 
   closeClicked(){
-    this.navCon.back();
+    this.navCon.navigateRoot('/tabs/shop')
   }
   async showMessage(message:string){
     const toast = await this.toast.create({
@@ -120,6 +130,7 @@ export class AccountPage implements OnInit {
     });
     return await toast.present();
   }
+  // Log out user and reload the app (the website) 
   logoutClicked(){
     this.loggingOut = true;
     this.auth.signOutUser()

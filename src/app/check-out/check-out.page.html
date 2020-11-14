@@ -1,0 +1,33 @@
+<ion-toolbar  class="app-header">
+  <div slot="start" class="logo" slot="start">
+   <img src="/assets/gelatos-logo.svg">
+  </div>
+
+  <ion-button (click)="closeClicked()" color="light" class="icon-button" slot="end">
+    <ion-icon color="primary" slot="icon-only" name="close"></ion-icon>
+  </ion-button>
+  
+</ion-toolbar>
+
+<ion-content class="ion-padding ion-text-center"> 
+<div class="all-page-form-holder">
+ <ion-row>
+   <ion-col>
+     <h1>CHECKOUT</h1>
+   </ion-col>
+ </ion-row>
+ <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+
+
+
+<div class="line">
+
+</div>
+
+</div>
+</ion-content>
+<ion-footer>
+<div class="footer">
+  <p>© 2020 - <a>GELATOS</a> | <a href="https://sites.google.com/view/gelatos-agreement" target="__blank">Privacy Policy</a> |  <a href="https://sites.google.com/view/gelatos-agreement" target="__blank">Terms & Conditions</a></p>
+</div>
+</ion-footer>

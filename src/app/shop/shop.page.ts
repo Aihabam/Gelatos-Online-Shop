@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ToastController, NavController, ActionSheetController } from '@ionic/angular';
-import { timeStamp } from 'console';
 import { Observable } from 'rxjs';
 import { AuthService } from '../Api/auth.service';
 import { ProductsService } from '../Api/products.service';
@@ -54,7 +53,7 @@ export class ShopPage  {
     if (this.loggedIn){
       $event.target.disabled = true;
       $event.target.textContent = 'ADDING...';
-      this.user.addToUserBasket(this.uid,{name:itemName,price:itemPrice,img:itemImg})
+      this.user.addToUserBasket(this.uid,{name:itemName,price:itemPrice,img:itemImg,id:''})
       .then(() => {
         this.showMessage(itemName+' Added to basket')
         $event.target.disabled = false;

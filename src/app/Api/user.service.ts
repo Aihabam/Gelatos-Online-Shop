@@ -6,7 +6,6 @@ import { AngularFireDatabase } from '@angular/fire/database';
   providedIn: 'root'
 })
 export class UserService {
-
   constructor(private firebase:AngularFireDatabase) { 
 
   }
@@ -21,6 +20,7 @@ export class UserService {
      });
     });
   }
+  // Get user 
   getUserInformation(uid:string){
     return new Promise((resolve,reject) => {
      this.firebase.database.ref('users').child(uid)
@@ -31,9 +31,12 @@ export class UserService {
      })
     });
   }
+  // Add item to user basket using their Id and the item data
   addToUserBasket(uid:string,item:object){
     return new Promise((resolve,reject) => {
-    this.firebase.database.ref('users').child(uid).child('basket').push().set(item)
+      let id = this.firebase.database.ref().push().key
+      item['id'] = id;
+    this.firebase.database.ref('users').child(uid).child('basket').child(id).set(item)
     .then(() => {
       resolve();
     }).catch(() => {
@@ -42,12 +45,18 @@ export class UserService {
     });
   }
   getItemsInBasket(uid:string){
-  return this.firebase.list('users/'+uid+'/basket').valueChanges();
+ return this.firebase.list('users/'+uid+'/basket').valueChanges()
   }
-  removeItemFromBasket(uid:string,item:any){
-   this.firebase.list('users/'+uid+'/basket/'+[item]).remove()
-   .then(() => {
-     
-   })
+ 
+  removeItemFromBasket(uid:string,key:any){
+    return new Promise((resolve,reject) => {
+      this.firebase.list('users/'+uid+'/basket/'+[key]).remove()
+      .then(() => {
+         resolve();
+      }).catch(() => {
+        reject();
+      })
+    });
+
   }
 }
