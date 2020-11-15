@@ -12,6 +12,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
   }
+  // Shop now, choose now, and see all clicked navigate to shop page 
   goToShop(){
     this.navCon.navigateRoot('/tabs/shop');
   }

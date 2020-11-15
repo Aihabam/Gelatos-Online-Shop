@@ -12,6 +12,7 @@ export class LoginPage implements OnInit {
 
   email:string;
   password:string;
+  // Working on it is boolean to disable the inputs and the button while logging in
   workingOnIt:boolean;
   loginButtonText:string;
   constructor(private navCon:NavController,private auth:AuthService,private toast:ToastController) { 
@@ -24,6 +25,8 @@ export class LoginPage implements OnInit {
      this.workingOnIt = false;
      this.loginButtonText =  'LOG ME IN';
   }
+   // Validate the input and call login function in auth service 
+
   loginClicked(){
     if (ValidateService.isEmpty(this.email)){
       this.showMessage('Please enter your email address');
@@ -36,8 +39,10 @@ export class LoginPage implements OnInit {
       this.workingOnIt = true;
       this.auth.doLogin(this.email,this.password)
       .then(() => {
+        // login success  navigate to shop page
        this.navCon.navigateRoot('/tabs/shop');
       }).catch((error) => {
+        // login failed there is an error, enable the inputs and show the error 
         this.workingOnIt = false;
         this.loginButtonText =  'LOG ME IN';
         this.showMessage(error);
@@ -45,16 +50,20 @@ export class LoginPage implements OnInit {
     }
   
   }
+  // Navigate to create account page 
   createAccountClicked(){
     this.navCon.navigateForward('create-account')
 
   }
+    // Navigate to reset password page 
   resetPasswordClicked(){
     this.navCon.navigateForward('reset-password')
   }
+  // Close button clicked  back to pervious page
   closeClicked(){
     this.navCon.back();
   }
+
   async showMessage(message:string){
     const toast = await this.toast.create({
       message:message,

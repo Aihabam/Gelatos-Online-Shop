@@ -16,15 +16,65 @@
      <h1>CHECKOUT</h1>
    </ion-col>
  </ion-row>
- <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+ <ion-row *ngIf="loading">
+  <ion-col>
+    <ion-spinner name="circles"></ion-spinner>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col class="ion-text-left">
+    <h3>Order Details</h3>
+    <p>Total Items: 3</p>
+  </ion-col>
+</ion-row>
+ <div class="items-container">
+   <div class="item">
+    
+   </div>
+ </div>
+ <ion-row >
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input [disabled]="!editMode"  [(ngModel)]="phoneNumber"></ion-input>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row >
+  <ion-col>
+    <ion-item>
+      <ion-label position="floating">Ship to</ion-label>
+      <ion-textarea [disabled]="!editMode" [(ngModel)]="address">
+      </ion-textarea>
+    </ion-item>
+    <p>Make sure you have entered correct address</p>
+  </ion-col>
+</ion-row>
+ <ion-row>
+  <ion-col class="ion-text-left">
+    <h3>Total amount</h3>
+    <h6>$32</h6>
+  </ion-col>
+</ion-row>
+<h3>Pay via</h3>
+<ngx-paypal [config]="payPalConfig"></ngx-paypal>
+<ion-row>
+  <ion-col class="ion-text-left">
+    <h2>Thank You!</h2>
+    <h6>We are preparing your order.</h6>
 
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col >
+    <ion-button  (click)="displayBasket()" color="primary">View my orders</ion-button>
 
+     
+  </ion-col>
+</ion-row>
+ </div>
+ 
 
-<div class="line">
-
-</div>
-
-</div>
 </ion-content>
 <ion-footer>
 <div class="footer">

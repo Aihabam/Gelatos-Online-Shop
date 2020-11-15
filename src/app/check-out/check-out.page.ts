@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal/lib/models/paypal-models';
 import { environment } from 'src/environments/environment';
+import { BasketPage } from '../basket/basket.page';
 
 @Component({
   selector: 'app-check-out',
@@ -10,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class CheckOutPage implements OnInit {
   public payPalConfig?: IPayPalConfig;
 
-  constructor() { }
+  constructor(private modal:ModalController) { }
 
   ngOnInit() {
     this.initConfig();
@@ -77,5 +79,12 @@ export class CheckOutPage implements OnInit {
       console.log('onClick', data, actions);
     },
   };
+  }
+  async displayBasket(){
+    // create the modal and display it 
+    const basket = await this.modal.create({
+      component:BasketPage
+    });
+    return await basket.present();
   }
 }

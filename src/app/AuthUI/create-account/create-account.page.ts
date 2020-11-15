@@ -13,6 +13,7 @@ export class CreateAccountPage implements OnInit {
   email:string;
   password:string;
   passwordConfirmation:string;
+    // Working on it is boolean to disable the inputs and the button while creating new account
   workingOnIt:boolean;
   createAccountButtonText:string;
   constructor(private navCon:NavController,private auth:AuthService,private toast:ToastController) { }
@@ -24,6 +25,7 @@ export class CreateAccountPage implements OnInit {
     this.workingOnIt = false;
     this.createAccountButtonText =  'CREATE';
  }
+ // Validate the input and call create account from auth service 
  createAccountClicked(){
   if (ValidateService.isEmpty(this.email)){
     this.showMessage('Please enter your email address');
@@ -40,8 +42,10 @@ export class CreateAccountPage implements OnInit {
     this.workingOnIt = true;
     this.auth.createUserAccount(this.email,this.passwordConfirmation)
     .then(() => {
+      // Account created navigate to account page 
      this.navCon.navigateRoot('/account');
     }).catch((error) => {
+      // account not created there is an error, enable the inputs and show the error 
       this.workingOnIt = false;
       this.createAccountButtonText =  'CREATE';
       this.showMessage(error);
@@ -56,6 +60,7 @@ export class CreateAccountPage implements OnInit {
   });
   return await toast.present();
 }
+// Close button clicked  back to pervious page
 closeClicked(){
   this.navCon.back();
 }

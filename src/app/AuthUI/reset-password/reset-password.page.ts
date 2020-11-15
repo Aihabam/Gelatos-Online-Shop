@@ -20,6 +20,7 @@ export class ResetPasswordPage implements OnInit {
     this.workingOnIt = false;
     this.sendButtonText =  'SEND';
   }
+  // Validate the input and call sendResetPasswordLink function in auth service 
   sendButtonClicked(){
     if (ValidateService.isEmpty(this.email)){
       this.showMessage('Please enter your email address');
@@ -30,17 +31,21 @@ export class ResetPasswordPage implements OnInit {
       this.workingOnIt = true;
       this.auth.sendResetPasswordLink(this.email)
       .then(() => {
+        // Email sent show message to user
         this.showMessage('An email was sent to '+this.email);
         this.email = '';
         this.workingOnIt = false;
         this.sendButtonText =  'SEND';
       }).catch((error) => {
+        // email not sent show error to the user and enable the input and button
         this.workingOnIt = false;
         this.sendButtonText =  'SEND';
         this.showMessage(error);
       });
   }
 }
+  // Close button clicked  back to pervious page
+
   closeClicked(){
     this.navCon.back();
   }

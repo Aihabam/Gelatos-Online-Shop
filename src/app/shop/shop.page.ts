@@ -20,11 +20,13 @@ export class ShopPage  {
   constructor(private productsService:ProductsService,private user:UserService,private auth:AuthService,private toast:ToastController,private navCon:NavController,private actionSheetController: ActionSheetController) { }
 
 
+  // this function will be called every time the user enters the page 
   ionViewDidEnter(){
     this.loading = true;
     this.onAuth();
 
   }
+  // Check if user logged in
   onAuth(){
    this.auth.getUser()
    .then((user) => {
@@ -40,6 +42,7 @@ export class ShopPage  {
 
    });
   }
+  // get the products from the database
   bindProducts(){
  this.products =  this.productsService.getProducts();
    this.products.subscribe((e) => {
@@ -49,7 +52,9 @@ export class ShopPage  {
     }
    });
   }
+  // add to basket clicked 
   addToBasketClicked(itemName,itemPrice,itemImg,$event){
+    // if logged in then add item to user basket
     if (this.loggedIn){
       $event.target.disabled = true;
       $event.target.textContent = 'ADDING...';
@@ -63,6 +68,7 @@ export class ShopPage  {
         $event.target.textContent = 'ADD TO BASKET';
       });
     }else{
+      // ask user to login or create account
    this.askToLoginOrCreateAccount();
     }
 
@@ -75,6 +81,7 @@ export class ShopPage  {
     });
     return await toast.present();
   }
+  // popup login or create account message
   async askToLoginOrCreateAccount() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Do you have account?',

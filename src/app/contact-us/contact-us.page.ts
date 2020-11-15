@@ -14,6 +14,7 @@ export class ContactUsPage implements OnInit {
   lastName:string;
   phoneNumber:string
   message:string;
+    // Working on it is boolean to disable the input and the button while sending the email to the database
   workingOnIt:boolean;
   sendButtonText:string;
   constructor(private toast:ToastController,private dataBase:AngularFireDatabase) { }
@@ -28,6 +29,7 @@ export class ContactUsPage implements OnInit {
     this.sendButtonText = 'SEND';
 
   }
+  // validate the inputs and send the message to the database
   sendClicked(){
     if (ValidateService.isEmpty(this.email)){
       this.showMessage('Please enter your email address');
@@ -54,6 +56,7 @@ export class ContactUsPage implements OnInit {
        phoneNumber:this.phoneNumber,
      }
      
+     // send to db
      this.dataBase.database.ref('messages').push().set(message)
      .then(() => {
        this.email = '';
@@ -63,10 +66,12 @@ export class ContactUsPage implements OnInit {
        this.message = '';
        this.workingOnIt = false;
        this.sendButtonText = 'SEND';
-       this.showMessage('Thanks so much for reaching out! We received your message and will get back to you as soon as possible.')
+       // the message was sent show message to the user
+       this.showMessage('Thanks so much for reaching out! We received your message and will get back to you as soon as possible.');
      }).catch(() => {
        this.workingOnIt = false;
        this.sendButtonText = 'SEND';
+       // message not sent show error to the user
        this.showMessage('Something went wrong, please try again later');
      })
      

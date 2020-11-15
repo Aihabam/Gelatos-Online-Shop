@@ -21,13 +21,19 @@ export class BasketPage implements OnInit {
   constructor(private auth:AuthService,private user:UserService,private navCon:NavController,private toast:ToastController,private modal:ModalController) { }
 
   ngOnInit() {
-  this.setSelectedTab();
+    // Check if the user is in the check out page, then select the previous  orders tab
+   if (window.location.pathname === '/check-out'){
+     this.setSelectedTab('history');
+   }else{
+this.setSelectedTab('new');
+   }
   this.bindNewOderItems();
-   
   }
-  setSelectedTab(){
-    this.selectedTab = 'new';
+  // Set selected tab to new Oder as default
+  setSelectedTab(tabName:string){
+    this.selectedTab = tabName;
   }
+  // Get user id and call getItemsInBasket to get their basket items from database
   bindNewOderItems(){
     this.loading = true;
     this.auth.getUser()
@@ -40,35 +46,41 @@ export class BasketPage implements OnInit {
           this.totalItems = e.length;
           this.totalAmount = 0;
           e.forEach((item) => {
+            // make a total price by counting each item, this will happen every time the list items changed, thats how firebase value changes work
             this.totalAmount += item['price'];
             
           })
           
            if (e.length > 0){
+            // there are items in the basket show  message on how to remove an item
              console.log(e.length);
              this.message = 'Slide left any item to remove';
            }else{
+             // there are no items added yet show no items message
             this.message = 'No items yet.';
 
            }
           });
         }
     }).catch(() => {
+      // there is an error while getting the user information show error message
       this.message = 'Something went wrong';
 
     });
   }
-
-  removeItem(key:string){    
-    this.user.removeItemFromBasket(this.uid,key)
+   // remove and item from the basket by passing the id of it and call removeItemFromBasket in the user service 
+  removeItem(id:string){    
+    this.user.removeItemFromBasket(this.uid,id)
     .then(() => {
     this.itemsInBasket.subscribe((e) => {
+      // check if no more item left
      if (e.length < 0){
       this.message = 'No items yet.'; 
      }
      
     });
     }).catch(() => {
+      // error while removing an item 
       this.showMessage('Something went wrong')
     });
     
@@ -82,10 +94,12 @@ export class BasketPage implements OnInit {
     });
     return await toast.present();
   }
+  // Check out button clicked
   checkOutClicked(){
     this.modal.dismiss();
     this.navCon.navigateForward('/check-out');
   }
+  // Close the basket modal
   closeClicked(){
     this.modal.dismiss();
 
