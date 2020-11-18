@@ -5,7 +5,7 @@
       <ion-icon color="primary" slot="icon-only" name="close"></ion-icon>
     </ion-button>
   </ion-toolbar>
-  <ion-segment [(ngModel)]="selectedTab" color="primary" >
+  <ion-segment [(ngModel)]="selectedTab" color="primary">
     <ion-segment-button value="new">
       <ion-label>NEW ORDER</ion-label>
     </ion-segment-button>
@@ -15,9 +15,10 @@
   </ion-segment>
 </ion-header>
 
+<!-- new order items tab -->
 <ion-content class="ion-padding" *ngIf="selectedTab === 'new'">
   <div class="header">
-     <p *ngIf="message">{{message}}</p>
+    <p *ngIf="message">{{message}}</p>
     <ion-row *ngIf="loading">
       <ion-col>
         <ion-spinner name="circles"></ion-spinner>
@@ -25,32 +26,68 @@
       </ion-col>
     </ion-row>
   </div>
-  <div *ngIf="!loading" >
-    <ion-list *ngFor="let item of itemsInBasket | async;" >
+  <div *ngIf="!loading">
+    <ion-list *ngFor="let item of itemsInBasket | async;">
       <ion-item-sliding>
         <ion-item>
           <div>
             <p>{{item.name}}</p>
-            <p style="font-weight: bold;">{{'$'+item.price}}</p>
+            <p style="font-weight: bold;">{{item.price+' LYD'}}</p>
           </div>
-       </ion-item>
-        <ion-item-options color="danger"  side="end">
-          <ion-item-option  (click)="removeItem(item.id)">Remove</ion-item-option>
+        </ion-item>
+        <ion-item-options color="danger" side="end">
+          <ion-item-option (click)="removeItem(item.id)">Remove</ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
   </div>
-
 </ion-content>
 <ion-footer *ngIf="selectedTab === 'new' && !loading">
-   <ion-toolbar class="ion-padding">
-      <div slot="start" class="">
-        <h3>{{'$'+totalAmount}}</h3>
-        <p *ngIf="totalItems < 5">Minimum checkout 5 items</p>
-      </div>
-      <ion-button (click)="checkOutClicked()" [disabled]="totalItems < 5" slot="end" color="primary">Checkout</ion-button>
-   </ion-toolbar>
+  <ion-toolbar class="ion-padding">
+    <div slot="start" class="">
+      <h3>{{totalAmount+ 'LYD'}}</h3>
+      <p *ngIf="totalItems < 5">Minimum checkout 5 items</p>
+    </div>
+    <ion-button (click)="checkOutClicked()" [disabled]="totalItems < 5" slot="end" color="primary">Checkout</ion-button>
+  </ion-toolbar>
 </ion-footer>
+
+<!-- past orders tab -->
 <ion-content class="ion-padding" *ngIf="selectedTab === 'history'">
-  history
+
+  <div class="header">
+    <p *ngIf="pasOrdersMessage">{{pasOrdersMessage}}</p>
+    <ion-row *ngIf="pastOrdersLoading">
+      <ion-col>
+        <ion-spinner name="circles"></ion-spinner>
+        <p>Loading...</p>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <ng-container *ngFor="let item of (pastOrders| async)?.reverse();let i = index;">
+    <div class="past-order">
+      <p style="font-weight: bold;">Total Items</p>
+      <p>{{item.totalItems}}</p>
+      <p style="font-weight: bold;">Total Amount</p>
+      <p>{{item.totalAmount+' LYD'}}</p>
+      <p style="font-weight: bold;">Ordered</p>
+      <p>{{item.createdOn | timeAgo}}</p>
+      <p style="font-weight: bold;">Status</p>
+      <ion-chip color="success" slot="end">
+        <ion-label>{{item.status}}</ion-label>
+      </ion-chip>
+      <hr>
+      <p style="font-weight: bold;">Items</p>
+      <div class="itemsOfOrder">
+        <div *ngFor="let item of getPastOrderItems(i)">
+          <p>{{item.name}}</p>
+          <p>{{item.price+' LYD'}}</p>
+        </div>
+      </div>
+
+    </div><br>
+  </ng-container>
+
+
 </ion-content>

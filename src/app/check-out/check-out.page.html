@@ -1,83 +1,100 @@
-<ion-toolbar  class="app-header">
+<ion-toolbar class="app-header">
   <div slot="start" class="logo" slot="start">
-   <img src="/assets/gelatos-logo.svg">
+    <img src="/assets/gelatos-logo.svg">
   </div>
 
   <ion-button (click)="closeClicked()" color="light" class="icon-button" slot="end">
     <ion-icon color="primary" slot="icon-only" name="close"></ion-icon>
   </ion-button>
-  
+
 </ion-toolbar>
 
-<ion-content class="ion-padding ion-text-center"> 
-<div class="all-page-form-holder">
- <ion-row>
-   <ion-col>
-     <h1>CHECKOUT</h1>
-   </ion-col>
- </ion-row>
- <ion-row *ngIf="loading">
-  <ion-col>
-    <ion-spinner name="circles"></ion-spinner>
-  </ion-col>
-</ion-row>
-<ion-row>
-  <ion-col class="ion-text-left">
-    <h3>Order Details</h3>
-    <p>Total Items: 3</p>
-  </ion-col>
-</ion-row>
- <div class="items-container">
-   <div class="item">
-    
-   </div>
- </div>
- <ion-row >
-  <ion-col>
-    <ion-item>
-      <ion-label position="floating">Phone Number</ion-label>
-      <ion-input [disabled]="!editMode"  [(ngModel)]="phoneNumber"></ion-input>
-    </ion-item>
-  </ion-col>
-</ion-row>
-<ion-row >
-  <ion-col>
-    <ion-item>
-      <ion-label position="floating">Ship to</ion-label>
-      <ion-textarea [disabled]="!editMode" [(ngModel)]="address">
-      </ion-textarea>
-    </ion-item>
-    <p>Make sure you have entered correct address</p>
-  </ion-col>
-</ion-row>
- <ion-row>
-  <ion-col class="ion-text-left">
-    <h3>Total amount</h3>
-    <h6>$32</h6>
-  </ion-col>
-</ion-row>
-<h3>Pay via</h3>
-<ngx-paypal [config]="payPalConfig"></ngx-paypal>
-<ion-row>
-  <ion-col class="ion-text-left">
-    <h2>Thank You!</h2>
-    <h6>We are preparing your order.</h6>
+<ion-content class="ion-padding ion-text-center">
+  <div class="all-page-form-holder">
+    <ion-row>
+      <ion-col>
+        <h1>CHECKOUT</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="loading">
+      <ion-col>
+        <ion-spinner name="circles"></ion-spinner>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!loading && !orderCreated">
+      <ion-col class="ion-text-left">
+        <h3>Order Details</h3>
+        <p>Total Items: {{totalItems}}</p>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="!loading && !orderCreated" class="items-container">
+      <ion-list *ngFor="let item of itemsInBasket | async;">
+        <ion-item>
+          <div>
+            <p>{{item.name}}</p>
+            <p style="font-weight: bold;">{{item.price+' LYD'}}</p>
+          </div>
+        </ion-item>
 
-  </ion-col>
-</ion-row>
-<ion-row>
-  <ion-col >
-    <ion-button  (click)="displayBasket()" color="primary">View my orders</ion-button>
+      </ion-list>
+    </div>
+    <ion-row *ngIf="!loading && !orderCreated">
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Phone Number</ion-label>
+          <ion-input [(ngModel)]="phoneNumber"></ion-input>
+        </ion-item>
+        <p>Make sure you have entered active phone number, you will receive a phone call from us once the order created</p>
 
-     
-  </ion-col>
-</ion-row>
- </div>
- 
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!loading && !orderCreated">
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Ship to</ion-label>
+          <ion-textarea [(ngModel)]="shippingAddress">
+          </ion-textarea>
+        </ion-item>
+        <p>Make sure you have entered correct address</p>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!loading && !orderCreated">
+      <ion-col class="ion-text-left">
+        <h3>Total amount</h3>
+        <h6>{{totalAmount}} LYD</h6>
+        <p>Free shipping</p>
+        <h3>Payment method</h3>
+        <p>Cash on delivery</p>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!loading && !confirmed && !orderCreated">
+      <ion-col class="ion-text-left">
+        <ion-button (click)="confirmClicked()" color="primary">Confirm</ion-button>
+
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="orderCreated">
+      <ion-col class="ion-text-left">
+        <h2>Thank You!</h2>
+        <h6>We are preparing your order.</h6>
+
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="orderCreated">
+      <ion-col>
+        <ion-button [disabled]="!confirmAble" (click)="displayBasket()" color="primary">View my orders</ion-button>
+
+
+      </ion-col>
+    </ion-row>
+  </div>
+
 
 </ion-content>
 <ion-footer>
-<div class="footer">
-  <p>© 2020 - <a>GELATOS</a> | <a href="https://sites.google.com/view/gelatos-agreement" target="__blank">Privacy Policy</a> |  <a href="https://sites.google.com/view/gelatos-agreement" target="__blank">Terms & Conditions</a></p>
-</div>
+  <div class="footer">
+    <p>© 2020 - <a>GELATOS</a> | <a href="https://sites.google.com/view/gelatos-agreement" target="__blank">Privacy
+        Policy</a> | <a href="https://sites.google.com/view/gelatos-agreement" target="__blank">Terms & Conditions</a>
+    </p>
+  </div>
 </ion-footer>

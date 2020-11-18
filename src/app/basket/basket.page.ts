@@ -18,6 +18,10 @@ export class BasketPage implements OnInit {
   totalAmount = 0;
   loading:boolean;
   message = '';
+  pasOrdersMessage = '';
+  pastOrders:Observable<any[]>;
+  pastOrdersLoading:boolean;
+  pastOrderItems = [];
   constructor(private auth:AuthService,private user:UserService,private navCon:NavController,private toast:ToastController,private modal:ModalController) { }
 
   ngOnInit() {
@@ -25,7 +29,7 @@ export class BasketPage implements OnInit {
    if (window.location.pathname === '/check-out'){
      this.setSelectedTab('history');
    }else{
-this.setSelectedTab('new');
+     this.setSelectedTab('new');
    }
   this.bindNewOderItems();
   }
@@ -36,11 +40,13 @@ this.setSelectedTab('new');
   // Get user id and call getItemsInBasket to get their basket items from database
   bindNewOderItems(){
     this.loading = true;
+    this.pastOrdersLoading = true;
     this.auth.getUser()
     .then((user) => {
         if (user){
           this.uid = user['uid'];
           this.itemsInBasket =  this.user.getItemsInBasket(user['uid']);
+          this.bindOrders();
           this.loading = false;
           this.itemsInBasket.subscribe((e) => {
           this.totalItems = e.length;
@@ -53,7 +59,6 @@ this.setSelectedTab('new');
           
            if (e.length > 0){
             // there are items in the basket show  message on how to remove an item
-             console.log(e.length);
              this.message = 'Slide left any item to remove';
            }else{
              // there are no items added yet show no items message
@@ -104,7 +109,22 @@ this.setSelectedTab('new');
     this.modal.dismiss();
 
   }
-
+  // bind all past orders to view
+  bindOrders(){
+  
+   this.pastOrders = this.user.getUserOrders(this.uid);
+   this.pastOrders.subscribe((orders) => {   
+     this.pastOrderItems = orders;  
+    // check if no past orders    
+   if (orders.length <= 0){
+    this.pasOrdersMessage = "You haven't make any order yet"; 
+   }
+   this.pastOrdersLoading = false;
+   });
+  }
+  getPastOrderItems(index){
+  return this.pastOrderItems[index]['items'];
+  }
 
 
 }

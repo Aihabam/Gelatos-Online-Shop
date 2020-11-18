@@ -22,7 +22,7 @@
         </div>
          <div class="actions">
           <ion-chip [color]="item.available?'success':'danger'" slot="end">
-            <ion-label>{{item.available?'AVAILABLE '+'$'+item.price:'NOT AVAILABLE'}}</ion-label>
+            <ion-label>{{item.available?'AVAILABLE '+item.price+' LYD':'NOT AVAILABLE'}}</ion-label>
           </ion-chip><br>
           <ion-button [disabled]="!item.available"  (click)="addToBasketClicked(item.name,item.price,item.img,$event)" color="warning">ADD TO BASKET</ion-button>
          </div>

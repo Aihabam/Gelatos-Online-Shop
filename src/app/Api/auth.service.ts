@@ -67,6 +67,8 @@ export class AuthService {
     });
    });
   }
+
+  // sign out users by calling firebase auth signOut
   signOutUser(){
   return new Promise((resolve,reject) => {
     this.firebase.signOut()
