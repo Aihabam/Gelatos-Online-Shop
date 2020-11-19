@@ -58,7 +58,7 @@ export class ShopPage  {
     if (this.loggedIn){
       $event.target.disabled = true;
       $event.target.textContent = 'ADDING...';
-      this.user.addToUserBasket(this.uid,{name:itemName,price:itemPrice,img:itemImg,id:''})
+      this.user.addToUserBasket(this.uid,{name:itemName,price:itemPrice,img:itemImg,id:this.user.getPushId()})
       .then(() => {
         this.showMessage(itemName+' Added to basket')
         $event.target.disabled = false;

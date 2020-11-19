@@ -119,17 +119,16 @@ export class CheckOutPage implements OnInit {
         totalAmount:this.totalAmount,
         items:this.orderItems,
         createdOn:Date.now(),
-        status:'preparing'
+        status:'preparing',
+        id:this.user.getPushId()
       }
       this.backOffice.createOrder(order)
       .then(() => {
-        this.user.recordOrder(this.uid,order)
-        .then(() => {
+     
           this.loading = false;
           this.confirmed = true;
           this.orderCreated = true;
           this.user.clearUserBasket(this.uid);
-        });
       }).catch((e) => {
         this.showMessage('Something went wrong, please try again later.')
 

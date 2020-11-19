@@ -35,9 +35,8 @@ export class UserService {
   // Add item to user basket using their Id and the item data
   addToUserBasket(uid:string,item:object){
     return new Promise((resolve,reject) => {
-      let id = this.firebase.database.ref().push().key
-      item['id'] = id;
-    this.firebase.database.ref('users').child(uid).child('basket').child(id).set(item)
+    
+    this.firebase.database.ref('users').child(uid).child('basket').child(item['id']).set(item)
     .then(() => {
       resolve();
     }).catch(() => {
@@ -61,7 +60,7 @@ What is it? - Returns an Observable of data as a synchronized array of JSON obje
 Why would you use it? - When you just need a list of data. No snapshot metadata is attached to the resulting array which makes it simple to render to a view.
    */
   getUserOrders(uid:string){
-    return this.firebase.list('users/'+uid+'/orders').valueChanges()
+    return this.firebase.list('back-office/orders',ref => ref.orderByChild('customerId').startAt(uid).endAt(uid)).valueChanges();
   }
   // Remove item from basket by user id and item id 
   removeItemFromBasket(uid:string,key:any){
@@ -75,18 +74,6 @@ Why would you use it? - When you just need a list of data. No snapshot metadata 
     });
 
   }
-  // Record new order to customer
-  recordOrder(uid:string,order:object){
-    return new Promise((resolve,reject) => {
-      this.firebase.database.ref('users').child(uid).child('orders')
-      .push().set(order)
-      .then(() => {
-         resolve();
-      }).catch(() => {
-        reject();
-      });
-     });
-  }
   // Clear user basket by deleting all current user basket items from database
   clearUserBasket(uid:string){
     return new Promise((resolve,reject) => {
@@ -97,5 +84,8 @@ Why would you use it? - When you just need a list of data. No snapshot metadata 
         reject();
       })
     });
+  }
+  getPushId(){
+    return this.firebase.createPushId();
   }
 }
