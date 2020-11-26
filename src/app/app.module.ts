@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -12,16 +12,22 @@ import {AngularFireModule} from '@angular/fire'
 import { environment } from 'src/environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
+import { TimeAgoPipe } from 'time-ago-pipe';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,TimeAgoPipe],
   entryComponents: [],
   imports: [BrowserModule, 
     IonicModule.forRoot(),
      AppRoutingModule,
      AngularFireModule.initializeApp(environment.firebaseConfig),
      AngularFireAuthModule,
-     AngularFireDatabaseModule
+     AngularFireDatabaseModule,
+  
+
+
+
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     StatusBar,
     SplashScreen,

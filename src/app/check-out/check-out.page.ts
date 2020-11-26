@@ -7,16 +7,11 @@ import {
   NavController,
   ToastController
 } from '@ionic/angular';
-import {
-  ICreateOrderRequest,
-  IPayPalConfig
-} from 'ngx-paypal/lib/models/paypal-models';
+
 import {
   Observable
 } from 'rxjs';
-import {
-  environment
-} from 'src/environments/environment';
+
 import {
   AuthService
 } from '../Api/auth.service';

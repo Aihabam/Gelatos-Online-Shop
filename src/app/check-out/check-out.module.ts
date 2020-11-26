@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { CheckOutPageRoutingModule } from './check-out-routing.module';
 
 import { CheckOutPage } from './check-out.page';
-import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   imports: [
@@ -15,7 +14,6 @@ import { NgxPayPalModule } from 'ngx-paypal';
     FormsModule,
     IonicModule,
     CheckOutPageRoutingModule,
-    NgxPayPalModule
   ],
   declarations: [CheckOutPage]
 })
