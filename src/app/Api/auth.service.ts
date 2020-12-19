@@ -44,7 +44,7 @@ export class AuthService {
       if (error.code === "auth/email-already-in-use"){
         reject('The email address is in use by another account');
       }
-       else if (error.code === "auth/weak-password"){
+       else if (error.code == "auth/weak-password"){
         reject('Password must be at least 6 characters long.')
       }else{
         reject('Something went wrong, please try again later.')

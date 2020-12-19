@@ -67,12 +67,14 @@ export class CheckOutPage implements OnInit {
         this.uid = user['uid'];
         this.user.getUserInformation(user['uid'])
           .then((userInfo) => {
-            
-            this.firstName = userInfo['firstName'];
-            this.phoneNumber = userInfo['phoneNumber'];
-            this.shippingAddress = userInfo['address'];
-            this.confirmAble = true;
-            this.getAndBindNewOderItems(user['uid']);
+             if (userInfo){
+              this.phoneNumber = userInfo['phoneNumber'];
+              this.shippingAddress = userInfo['address'];
+             } 
+             this.confirmAble = true;    
+             this.getAndBindNewOderItems(user['uid']);
+
+         
           });
       }).catch(() => {
         this.showMessage('Something went wrong, please try again later.')
@@ -106,7 +108,6 @@ export class CheckOutPage implements OnInit {
     }else{
       this.loading = true;
       let order = {
-        firstName:this.firstName,
         phoneNumber:this.phoneNumber,
         shippingAddress:this.shippingAddress,
         customerId: this.uid,
@@ -114,7 +115,8 @@ export class CheckOutPage implements OnInit {
         totalAmount:this.totalAmount,
         items:this.orderItems,
         createdOn:Date.now(),
-        status:'preparing',
+        completed:false,
+        status:'Awaiting Confirmation',
         id:this.user.getPushId()
       }
       this.backOffice.createOrder(order)
@@ -125,6 +127,8 @@ export class CheckOutPage implements OnInit {
           this.orderCreated = true;
           this.user.clearUserBasket(this.uid);
       }).catch((e) => {
+        console.log(e);
+        
         this.showMessage('Something went wrong, please try again later.')
 
       });

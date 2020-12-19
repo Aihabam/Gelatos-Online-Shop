@@ -10,8 +10,7 @@ import { ValidateService } from '../Services/validate.service';
 })
 export class AboutUsPage implements OnInit {
   email:string;
-  // Working on it is boolean to disable the input and the button while sending the email to the database
-  workingOnIt:boolean;
+   workingOnIt:boolean;
   joinButtonText:string;
   constructor(private dataBase:AngularFireDatabase,private toast:ToastController) { }
 

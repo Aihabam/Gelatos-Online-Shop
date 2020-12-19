@@ -74,7 +74,7 @@
       <p style="font-weight: bold;">Ordered</p>
       <p>{{item.createdOn | timeAgo}}</p>
       <p style="font-weight: bold;">Status</p>
-      <ion-chip color="success" slot="end">
+      <ion-chip [color]="item.status === 'Awaiting Confirmation' || 'preparing'?'warning':'success'" slot="end">
         <p>{{item.status}}</p>
       </ion-chip>
       <hr>

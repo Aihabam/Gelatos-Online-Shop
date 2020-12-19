@@ -35,6 +35,7 @@ export class AccountPage implements OnInit {
     this.address = '';
     this.loggingOut = false;
     this.getUserAccount();
+    
   }
   // Get the current user account
   getUserAccount(){
