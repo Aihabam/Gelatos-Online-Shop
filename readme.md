@@ -19,4 +19,6 @@
 ## Access Gelatos Database
 ###### If you need access to Gelatos Database please send your gmail address to this whatsApp number (081219203979) so i can add you to the firebase project. 
 ### If you have any questions please contact me by whatsApp 081219203979
+# Note
+###### Images and products names are owned by Graeter's Ice Cream its used in Gelatos by the permission of Graeter's Ice Cream, if you would like to use any of them please request permission from Graeter's Ice Cream by sending an email to general@graeters.com
 
